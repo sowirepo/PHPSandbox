@@ -1,4 +1,4 @@
-    <?php
+<?php
     /** PHPSandbox utility functions
      * @package PHPSandbox
      */
