@@ -1,4 +1,4 @@
-<?php
+    <?php
     /** PHPSandbox utility functions
      * @package PHPSandbox
      */
@@ -28,7 +28,7 @@
                 next($value);
             }
             return $value;
-        } else if(is_string($value) && is_callable($value)){
+        } else if(is_string($value) && is_callable($value) && !$sandbox->isWhitelistedFunc($value)){
             return new SandboxedString($value, $sandbox);
         }
         return $value;
