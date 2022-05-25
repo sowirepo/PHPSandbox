@@ -1,9 +1,10 @@
 <?php
     use \PHPSandbox\PHPSandbox;
+    use \PHPUnit\Framework\TestCase;
 
     error_reporting(E_ALL);
 
-    class DefaultConfigTest extends PHPUnit_Framework_TestCase {
+    class DefaultConfigTest extends TestCase {
         /**
          * @var PHPSandbox
          */
@@ -12,16 +13,8 @@
         /**
          * Sets up the test
          */
-        public function setUp(){
+        public function setUp() : void {
             $this->sandbox = new PHPSandbox;
-        }
-
-        public function expectException($exception){    //future-proofed expectException method
-            if(method_exists(get_parent_class(), 'expectException')){
-                parent::expectException($exception);
-            } else {
-                $this->setExpectedException($exception);
-            }
         }
 
         public function testSettingAndUnsettingOptions(){
@@ -417,15 +410,15 @@
         }
 
         /**
-         * Test whether sandbox disallows violating callbacks
+         * Test whether sandbox disallows magic constants by default
          */
         public function testMagicConstants(){
             $this->expectException('PHPSandbox\Error');
-            $this->sandbox->execute(function(){ return __DIR__;});
+            $this->sandbox->execute(function(){ return __DIR__; });
         }
 
         /**
-         * Test whether sandbox disallows violating callbacks
+         * Test whether sandbox allows whitelisted magic constants
          */
         public function testWhitelistMagicConstants(){
             $this->sandbox->whitelistMagicConst('DIR');
